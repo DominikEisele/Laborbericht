@@ -1,0 +1,319 @@
+\documentclass[a4paper,12pt,fleqn,oneside]{article}
+ \usepackage{graphicx}
+\usepackage{etex}
+\usepackage[latin1]{inputenc}
+\usepackage{ae,aecompl}
+\usepackage[T1]{fontenc}
+\usepackage{ngerman}
+\usepackage{fleqn}
+\usepackage{ulem}
+\usepackage{amssymb}
+%\usepackage[locale=DE, per-mode=fraction, quotient-mode=fraction, group-minimum-digits=6]{siunitx}
+\usepackage[locale=DE]{siunitx}
+\usepackage{tabularx}
+\usepackage{bm}
+\usepackage{booktabs}
+\usepackage{color}
+\usepackage{pictex}
+\usepackage[left=2.5cm,right=2.5cm,top=2cm,bottom=2cm,includeheadfoot]{geometry}
+\usepackage[section]{placeins}
+\usepackage{xspace}
+\usepackage{multirow}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{esvect}
+\usepackage{pgfplots}
+\usepackage[ngerman]{babel}
+\usepackage{tikz}
+
+\setlength{\headheight}{15pt}
+\pagestyle{fancy}
+\fancyfoot[C]{Seite \thepage{} von \pageref{LastPage}}
+\linespread{1.5}
+\author{Dominik Eisele}
+\title{Laborbericht}
+\date{\today}
+
+
+%\begingroup\makeatletter\ifx\SetFigFontNFSS\undefined%
+%\gdef\SetFigFontNFSS#1#2#3#4#5{%
+%  \reset@font\fontsize{#1}{#2pt}%
+%  \fontfamily{#3}\fontseries{#4}\fontshape{#5}%
+%  \selectfont}%
+%\fi\endgroup%
+
+
+% Zusätzliche Spalten mit variabler Breite fur tabularx
+%\newcolumntype{L}{>{\raggedright\arraybackslash}X} % linksbündig
+%\newcolumntype{C}{>{\centering\arraybackslash}X} % zentriert
+%\newcolumntype{R}{>{\raggedleft\arraybackslash}X} % rechtsbündig
+
+
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}} % linksbündig mit Breitenangabe
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} % zentriert mit Breitenangabe
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}} % rechtsbündig mit Breitenangabe
+
+
+\setlength{\tabcolsep}{0pt}
+\renewcommand{\arraystretch}{1}
+
+
+%\renewcommand*\contentsname{Gliederung}
+
+
+\let\oldsqrt\sqrt
+\def\sqrt{\mathpalette\DHLhksqrt}
+\def\DHLhksqrt#1#2{\setbox0=\hbox{$#1\oldsqrt{#2\,}$}\dimen0=\ht0
+\advance\dimen0-0.3\ht0
+%0.3 ist das Maß für die Hakenlänge, relativ zum Inhalt der Wurzel
+\setbox2=\hbox{\vrule height\ht0 depth -\dimen0}%
+{\box0\lower0.4pt\box2}}
+
+
+
+\begin{document}
+
+\begin{titlepage}
+	\begin{flushleft}
+		\vspace*{2\baselineskip}
+		{\fontsize{16}{19.2}\selectfont Laborbericht Elektrotechnik TGE11/2}\\[4\baselineskip]
+		\begin{tabularx}{\textwidth}{rp{5px}X}
+			{\fontsize{16}{19.2}\selectfont Titel:}&&{\fontsize{16}{19.2}\selectfont Gleichrichterschaltung}
+		\end{tabularx}
+		\\[5\baselineskip]
+		\setlength{\tabcolsep}{0pt}
+		\renewcommand{\arraystretch}{1,25}
+		\begin{tabular}{lp{5px}l}
+			{\fontsize{14}{16.8}\selectfont Bearbeiter:}&&{\fontsize{14}{16.8}\selectfont Dominik Eisele{}}\\
+			{\fontsize{14}{16.8}\selectfont Mitarbeiterin:}&&{\fontsize{14}{16.8}\selectfont Theresa Klein}\\
+			{\fontsize{14}{16.8}\selectfont Datum Versuchsdurchführung:}&&{\fontsize{14}{16.8}\selectfont 30.06.2015}\\
+			{\fontsize{14}{16.8}\selectfont Datum Abgabe:}&&{\fontsize{14}{16.8}\selectfont 13.07.2014}
+		\end{tabular}
+		\\[2\baselineskip]
+		{\fontsize{14}{16.8}\selectfont Ich erkläre an Eides statt, den vorliegenden Laborbericht selbst angefertigt zu haben. Alle fremden Quellen wurden in diesem Laborbericht benannt.}
+		\\[2\baselineskip]
+		{\fontsize{14}{16.8}\selectfont Aichwald, \today $  $ Dominik Eisele}
+	\end{flushleft}
+\end{titlepage}
+
+\setlength{\tabcolsep}{7pt}
+\renewcommand{\arraystretch}{1,7}
+
+
+
+
+\section{Einführung}
+	Bei dem Versuch "`Einpuls-Einweggleichrichterschaltung"' wird  die Funktionsweiße einer Einpuls-Einweggleichrichterschaltung 
+	untersucht. Die entstandene Gleichspannung wird anschließend Oszilloskopiert.
+
+\subsection{Grundlagen}
+	Eine Gleichrichterdiode besitzt eine Sperr- und eine Durchlassrichtung, das heißt dass der Stomfluss in eine Richtung fast 
+	ungehindert möglich ist, vertauscht man die Polarität isoliert die Diode fast vollständig.
+
+\subsection{Benötigten Formeln}
+	Bei einer inusförmigen Wechselspannung:\\
+	$u_\text{eff}=\frac{\hat{u}}{\sqrt{2}}$\\
+	Bei einer sinusförmigen, pulsierenden Gleichspanung, die ausschließlich die positiven Halbwellen besitzt:\\
+	Da bei einer, mit einer Diode, gleichgerichteten Spannung nur die Hälfte der Halbwellen, des ursprünglichen Sinus 
+	vorhanden sind, muss man die Formel für das Berechnen des Effektivwerts durch $\sqrt{2}$ teilen.\\
+	$u_\text{eff}=\frac{\frac{\hat{u}}{\sqrt{2}}}{\sqrt{2}}$\\
+	\rotatebox[origin=c]{180}{$\Lsh$} $u_\text{eff}=\frac{\hat{u}}{2}$
+	Daraus erschließt sich die Formel $u_\text{eff}=\frac{\hat{u}}{2}$ für den Effektivwert einer sinusförmigen,
+	pulsierenden Gleichspanung, die ausschließlich positiven Halbwellen besitzt.
+
+\newpage
+
+\section{Material und Methoden}
+
+\subsection{Material}
+	Für den Versuch verwendete Materialien:
+	\begin{itemize}
+		\item 1$\times$ Gleichrichterdiode
+		\item Metra HIT 26S
+		\item Metra HIT 20S
+		\item Bauteilplatte 1/6
+		\item Transformator WSS 080 N6-06
+		\item Potentiometer \SI{470}{\ohm} N.6
+		\item Leitungen
+		\item	 Brücken
+	\end{itemize}
+
+\subsection{Aufbau}
+	An den Ausgängen eines Transformators wird eine Gleichrichterdiode und ein Widerstand angeschlossen.
+	Zusätzich werden zwei Spannungs- und ein Strommmessgerät angeschlossen.
+	Dieser Aufbau ist in Abbildung \ref{fig:skizze_schaltung} abgebildet.
+	\begin{figure}[h]
+		\centering
+		\input{skizze_schaltung}
+		\caption{Skizze der Einpuls-Einweggleichrichterschaltung}
+		\label{fig:skizze_schaltung}
+	\end{figure}
+
+\subsection{Durchführung}
+	Nachdem die Schaltung aufgebaut wurde wurde die Sannungen $U_\text{ges}$ gemessen.
+	Aufgrund dieser Messwerte wurde der benötigte Widerstand R berechnet. Nachdem der Widerstand R eingebaut wurde, 
+	wurde die Spannung $U_\text{d}$ gemessen.\\
+	Die Spannung $U_\text{d}$ wurde zusätzlich mit einem Oszilloskop untersucht, das enstandene Schaubild ist dem 
+	Laborbericht beigefügt.
+
+
+\section{Messwerte}
+	$U_{\text{ges}_\text{eff}} = \SI{21}{\volt}$\\
+	$\hat{U}_\text{ges} = \SI{29}{\volt}$\\
+	$\hat{U}_\text{d} = \SI{28}{\volt}$\\
+	$U_{\text{d}_\text{eff}} = \SI{14}{\volt}$\\
+	$I_\text{d} = \SI{0,5}{\ampere}$
+
+\section{Auswertung}
+\subsection{Einpuls-Einweggleichrichterschaltung}	
+	\begin{tikzpicture}[domain=0:3.8]
+		\begin{axis}[
+			samples=1000,
+			domain=0:10, xmax=4.5,
+			restrict y to domain=-31:31,
+			axis lines=left,
+			axis lines=middle,
+			y=1cm/5.5,
+			x=1cm*2.5,
+			grid=both,
+			xtick={0,...,4.5},
+		    	ytick={-30,-20,...,30},
+		    	compat=newest,
+		    	x label style={at={(axis description cs:0.5,-0.04)},anchor=north},
+			y label style={at={(axis description cs:-0.2,.5)},rotate=-360,anchor=south},	
+			xlabel={Zeit $t$ in ms},
+			ylabel={Spannung $U$ in V}
+			]  
+			\addplot [red,thick] {29*sin(3.141*\x r-pi)} ;
+			\addplot [blue,thick] {21};
+			\addplot [white] {31};
+			\addplot [white] {-31};
+		\end{axis}	
+	\end{tikzpicture}  
+	\\
+	Die sinusförmige Wechselspannung (rot) besitzt ein ein Spitzenwert von $\hat{U} = \SI{29}{\volt}$. 
+	Der dazugehörige Effektievwert (blau) liegt bei $U_\text{eff} = \SI{21}{\volt}$. 
+	Dieser gemessene Wert lässt sich durch die Formel $u_\text{eff}=\frac{\hat{u}}{\sqrt{2}}$ auch berechnen :
+	$u_\text{eff}=\frac{\SI{29}{\volt}}{\sqrt{2}} = \SI{20,5}{\volt} \approx \SI{21}{\volt}$.
+
+\newpage
+	\noindent
+	\begin{tikzpicture}[domain=0:3.8][B]
+		\begin{axis}[
+			samples=1000,
+			domain=0:10, xmax=4.5,
+			restrict y to domain=0:31,
+			axis lines=left,
+			axis lines=middle,
+			y=1cm/5.5,
+			x=1cm*2.5,
+			grid=both,
+			xtick={0,...,4.5},
+		    	ytick={0,10,...,30},
+		    	compat=newest,
+		    	x label style={at={(axis description cs:0.5,-0.1)},anchor=north},
+			y label style={at={(axis description cs:-0.2,.5)},rotate=-360,anchor=south},	
+			xlabel={Zeit $t$ in ms},
+			ylabel={Spannung $U$ in V}
+			]  
+			\addplot [green,thick] {28*sin(3.141*\x r-pi)} ;
+			\addplot [yellow,thick] {14};
+			\addplot [white] {31};
+			\draw [green,thick] (71.3pt,1pt)-- (142.6pt,1pt);
+			\draw [green,thick] (213.9pt,1pt)-- (285.2pt,1pt);
+		\end{axis}	
+	\end{tikzpicture}  
+	Die pulsierende Gleichpannung (grün) besitzt ein ein Spitzenwert von $\hat{U} = \SI{28}{\volt}$. 
+	Der dazugehörige Effektievwert (blau) liegt bei $U_\text{eff} = \SI{14}{\volt}$. 
+	Dieser gemessene Wert lässt sich durch die Formel $u_\text{eff}=\frac{\hat{u}}{2}$ auch berechnen :
+	$u_\text{eff}=\frac{\SI{28}{\volt}}{2} = \SI{14}{\volt}$.\\
+	Der auftretende Verlust am Spitzenwert von 
+	$\hat{U}_\text{ges} - \hat{U}_\text{d} = \SI{29}{\volt} -  \SI{28}{\volt} = \SI{1}{\volt}$ lässt sich durch die 
+	Schleusenspannung $U_\text{S}$ einer Diode erklären. Erst ab \SI{0,6}{\volt} bis \SI{0,7}{\volt} 
+	nimmt der Stomfluss stark zu, ein nennenswerter Strom fließt allerdings schon ab etwa \SI{0,4}{\volt}.
+
+\newpage
+\noindent
+\subsection{Zweipuls-Brücken-Gleichrichterschaltung}
+	Da eine mit einer Einpuls-Einweggleichrichterschaltung entstandene Brummspannung unpraktikabel ist,
+	da, die Schaltung, ein schlechten Wirkungsgrad besitzt und die Spannung lange Zeit bei  \SI{0}{\volt} ist,
+	benutzt man eine Zweipuls-Brücken-Gleichrichterschaltung. Bei dieser Schaltung werden vier Dioden benötigt,
+	die wie in Abbildung \ref{fig:skizze_schaltung_2} zu sehen ist aufgebaut werden. MIt dieser Schaltung werden die negativen
+	Halbwellen nicht abgeschnitten, sondern ins positive übertragen. Da die negativen Halbwellen, im Vergleich zur
+	Einpuls-Einweggleichrichterschaltung, erhalten bleiben, ist der Wirkungsgrad deutlich besser und es gibt keine \SI{0}{\volt}
+	Phasen.
+	\begin{figure}[h!]
+		\centering
+		\input{skizze_schaltung_2}
+		\caption{Skizze der Zweipuls-Brücken-Gleichrichterschaltung}
+		\label{fig:skizze_schaltung_2}
+	\end{figure}
+	\FloatBarrier
+
+\newpage	
+	\begin{tikzpicture}[domain=0:3.8]
+		\begin{axis}[
+			samples=1000,
+			domain=0:10, xmax=4.5,
+			restrict y to domain=-31:31,
+			axis lines=left,
+			axis lines=middle,
+			y=1cm/5.5,
+			x=1cm*2.5,
+			grid=both,
+			xtick={0,...,4.5},
+		    	ytick={-30,-20,...,30},
+		    	compat=newest,
+		    	x label style={at={(axis description cs:0.5,-0.04)},anchor=north},
+			y label style={at={(axis description cs:-0.2,.5)},rotate=-360,anchor=south},	
+			xlabel={Zeit $t$ in ms},
+			ylabel={Spannung $U$ in V}
+			]  
+			\addplot [red,thick] {29*sin(3.141*\x r-pi)} ;
+			\addplot [blue,thick] {21};
+			\addplot [white] {31};
+			\addplot [white] {-31};
+		\end{axis}	
+	\end{tikzpicture}\\  
+	Bei der Spannung $U_{ges}$ (rot) und der Effektivspannung $U_{\text{ges}_\text{eff}}$ (blau) gibt es bei der 
+	Zweipuls-Brücken-Gleichrichterschaltung keinen Unterschied zur Einpuls-Einweggleichrichterschaltung. Der Unterschied 
+	zwischen den beiden Schaltungen ist erst bei den Spannungen $U_{\text{d}}$ (grün) und $U_{\text{d}_\text{eff}}$ (gelb)
+	sichtbar. Hier ist nun, bei der ursprünglichen \SI{0}{\volt} Phase, eine zweite, positive, sinusförmige Halbwelle.
+	
+	
+%\newpage
+	\begin{tikzpicture}[domain=0:3.8][B]
+		\begin{axis}[
+			samples=1000,
+			domain=0:10, xmax=4.5,
+			restrict y to domain=0:31,
+			axis lines=left,
+			axis lines=middle,
+			y=1cm/5.5,
+			x=1cm*2.5,
+			grid=both,
+			xtick={0,...,4.5},
+		    	ytick={0,10,...,30},
+		    	compat=newest,
+		    	x label style={at={(axis description cs:0.5,-0.1)},anchor=north},
+			y label style={at={(axis description cs:-0.2,.5)},rotate=-360,anchor=south},	
+			xlabel={Zeit $t$ in ms},
+			ylabel={Spannung $U$ in V}
+			]  
+			\addplot [green,thick] {28*sin(3.141*\x r-pi)} ;
+			\addplot [green,thick] {28*sin(3.141*(\x+3) r-pi)} ;
+			\addplot [yellow,thick] {20.506};
+			\addplot [white] {31};
+		\end{axis}	
+	\end{tikzpicture}  
+	
+\end{document}
+
+
+
+
+
+
+
+
